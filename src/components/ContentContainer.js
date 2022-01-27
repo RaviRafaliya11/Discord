@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { IoSend } from "react-icons/io5";
@@ -23,6 +23,15 @@ const ContentContainer = ({ content }) => {
   const { data: session } = useSession();
   const [sendmsg, setSendMsg] = useState(null);
   const [messages, setMessages] = useState([]);
+  const bottomRef = useRef(null);
+
+  const scrollToBottom = () => {
+    bottomRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!sendmsg) return;
@@ -45,6 +54,7 @@ const ContentContainer = ({ content }) => {
         timestamp: serverTimestamp(),
       }
     );
+    scrollToBottom();
   };
 
   useEffect(
@@ -91,6 +101,8 @@ const ContentContainer = ({ content }) => {
                 }}
               />
             ))}
+
+            <div ref={bottomRef} className="pb-5" />
           </div>
 
           {/* Message Box */}

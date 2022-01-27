@@ -89,7 +89,7 @@
     @apply flex flex-col items-center 
       h-full w-full 
       mt-0 ml-0 mx-auto px-0 pb-12 
-      overflow-y-scroll;
+      overflow-y-scroll scrollbar-hide;
   }
 
   .post {
@@ -180,8 +180,10 @@
 
 ::-webkit-scrollbar {
   background-color: transparent;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-green-400;
+  border-radius: 1px;
+  @apply bg-gray-500;
 }
