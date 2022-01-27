@@ -95,8 +95,7 @@
   .post {
     @apply w-full
       flex flex-row items-center justify-evenly
-      py-4 px-8 m-0
-      cursor-pointer;
+      py-4 px-8 m-0;
   }
 
   .post-selected {
@@ -116,7 +115,7 @@
   }
 
   .post-owner {
-    @apply text-left font-semibold text-gray-800 dark:text-white mr-2 cursor-pointer;
+    @apply text-left font-semibold text-gray-800 dark:text-white mr-2;
   }
 
   .avatar-wrapper {
@@ -174,21 +173,6 @@
     @apply text-lg tracking-wider font-bold 
       text-gray-600 dark:text-gray-400 
       mr-auto ml-4 my-auto align-middle;
-  }
-
-  .channel-heading {
-    @apply flex flex-row items-center justify-evenly
-      mt-1 mr-auto ml-2
-      transition duration-300 ease-in-out
-      cursor-pointer px-2 py-1 w-full hover:bg-gray-500;
-  }
-
-  .channel-text {
-    @apply text-gray-500 font-semibold tracking-wide
-      mr-auto 
-      transition duration-300 ease-in-out 
-      hover:text-pink-500
-      cursor-pointer;
   }
 }
 

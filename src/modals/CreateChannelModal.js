@@ -14,10 +14,10 @@ export default function CreateChannelModal() {
   const query = useRouter();
 
   const CreateChannel = async () => {
-    if (loading) return;
+    if (loading || !channelName) return;
     setLoading(true);
     const docRef = await addDoc(
-      collection(db, "Servers", query.query.id, "Channels"),
+      collection(db, "Servers", query.query.sid, "Channels"),
       {
         name: channelName,
         timestamp: serverTimestamp(),
@@ -25,6 +25,9 @@ export default function CreateChannelModal() {
     );
     setOpen(false);
     setLoading(false);
+    query.push(
+      `/channels/${query.query.slug}?cid=${docRef.id}&sid=${query.query.sid}&cn=${channelName}`
+    );
   };
 
   return (

@@ -9,3 +9,13 @@ export const CreateChannelModalState = atom({
   key: "CreateChannelModalState",
   default: false,
 });
+
+export const EditServerModalState = atom({
+  key: "EditServerModalState",
+  default: false,
+});
+
+export const EditChannelModalState = atom({
+  key: "EditChannelModalState",
+  default: false,
+});

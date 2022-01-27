@@ -7,6 +7,7 @@ import { collection, onSnapshot, query } from "@firebase/firestore";
 import { db } from "../Firebase/firebase";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SideBar = () => {
   const [open, setOpen] = useRecoilState(CreateServerModalState);
@@ -62,23 +63,22 @@ const SideBar = () => {
   );
 };
 const Server = ({ data }) => {
+  const router = useRouter();
   return (
-    <Link
-      href={{
-        pathname: `/channels/${data.serverdata.servername}}`,
-        query: { id: `${data.id}` },
-      }}
+    <div
+      className="sidebar-icon group"
+      onClick={() =>
+        router.push(`/channels/${data.serverdata.servername}?sid=${data.id}`)
+      }
     >
-      <div className="sidebar-icon group ">
-        <img
-          className="sidebar-icon group w-full h-full object-cover"
-          src={data.serverdata.image}
-        />
-        <span className="sidebar-tooltip group-hover:scale-100">
-          {data.serverdata.servername}{" "}
-        </span>
-      </div>
-    </Link>
+      <img
+        className="sidebar-icon group w-full h-full object-cover"
+        src={data.serverdata.image}
+      />
+      <span className="sidebar-tooltip group-hover:scale-100">
+        {data.serverdata.servername}{" "}
+      </span>
+    </div>
   );
 };
 export default SideBar;

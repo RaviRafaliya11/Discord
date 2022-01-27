@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
 import { IoSend } from "react-icons/io5";
 import TopNavigation from "./TopNavigation ";
 import { db } from "../Firebase/firebase";
@@ -12,6 +13,8 @@ import {
   onSnapshot,
   query,
   orderBy,
+  deleteDoc,
+  doc,
 } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
 
@@ -20,16 +23,16 @@ const ContentContainer = ({ content }) => {
   const { data: session } = useSession();
   const [sendmsg, setSendMsg] = useState(null);
   const [messages, setMessages] = useState([]);
-
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (!sendmsg) return;
     const messageToSend = sendmsg;
     setSendMsg("");
     await addDoc(
       collection(
         db,
         "Servers",
-        `${queryparams.query.id}`,
+        `${queryparams.query.sid}`,
         "Channels",
         `${queryparams.query.cid}`,
         "Messages"
@@ -51,7 +54,7 @@ const ContentContainer = ({ content }) => {
           collection(
             db,
             "Servers",
-            `${queryparams.query.id}`,
+            `${queryparams.query.sid}`,
             "Channels",
             `${queryparams.query.cid}`,
             "Messages"
@@ -69,26 +72,25 @@ const ContentContainer = ({ content }) => {
     <div className="content-container">
       {content ? (
         <>
-          <TopNavigation content={content} channelname={queryparams.query.cn} />
+          <TopNavigation
+            content={content}
+            channelname={
+              queryparams.query.cn
+                ? queryparams.query.cn
+                : queryparams.query.slug
+            }
+          />
           <div className="content-list h-screen">
             {messages.map((message) => (
               <Message
                 key={message.id}
+                useremail={session.user.email}
                 data={{
                   id: message.id,
                   messagedata: message.data(),
                 }}
               />
             ))}
-
-            {/* <Post
-              name="Ada"
-              timestamp="one week ago"
-              text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.`}
-            /> */}
           </div>
 
           {/* Message Box */}
@@ -124,13 +126,26 @@ const ContentContainer = ({ content }) => {
   );
 };
 
-const Message = ({ data }) => {
+const Message = ({ data, useremail }) => {
+  const queryparams = useRouter();
+  const DeleteMessage = async () => {
+    await deleteDoc(
+      doc(
+        db,
+        "Servers",
+        `${queryparams.query.sid}`,
+        "Channels",
+        `${queryparams.query.cid}`,
+        "Messages",
+        `${data.id}`
+      )
+    );
+  };
   return (
     <div className={"post"}>
       <div className="avatar-wrapper">
         <img src={`${data.messagedata.userimage}`} alt="" className="avatar" />
       </div>
-
       <div className="post-content">
         <p className="post-owner">
           {data.messagedata.username}
@@ -142,6 +157,12 @@ const Message = ({ data }) => {
         </p>
         <p className="post-text">{data.messagedata.message}</p>
       </div>
+      {data.messagedata.useremail === useremail && (
+        <AiFillDelete
+          className="w-5 h-5 text-red-500 cursor-pointer"
+          onClick={DeleteMessage}
+        />
+      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@ import {
 import { useSession } from "next-auth/react";
 import { db, storage } from "../Firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useRouter } from "next/router";
 
 export default function CreateServerModal() {
   const [open, setOpen] = useRecoilState(CreateServerModalState);
@@ -21,6 +22,8 @@ export default function CreateServerModal() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [serverName, setServerName] = useState(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const addImageToPost = (e) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
@@ -32,7 +35,7 @@ export default function CreateServerModal() {
   };
 
   const CreateServer = async () => {
-    if (loading) return;
+    if (loading || !serverName || !selectedFile) return;
     setLoading(true);
     const docRef = await addDoc(collection(db, "Servers"), {
       ownername: session.user.name,
@@ -53,8 +56,8 @@ export default function CreateServerModal() {
     setOpen(false);
     setLoading(false);
     setSelectedFile(null);
+    router.push(`/channels/${serverName}?sid=${docRef.id}`);
   };
-
   return (
     <div>
       <Modal open={open} onClose={() => setOpen(false)} center>
@@ -104,6 +107,7 @@ export default function CreateServerModal() {
 
               <input
                 className="p-1 w-full mt-2"
+                value={serverName}
                 onChange={(e) => setServerName(e.target.value)}
                 type="text"
                 placeholder="Enter server name"

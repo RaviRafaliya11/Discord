@@ -5,9 +5,11 @@ import ContentContainer from "../../components/ContentContainer";
 import SideBar from "../../components/SideBar";
 import CreateServerModal from "../../modals/CreateServerModal";
 import CreateChannelModal from "../../modals/CreateChannelModal";
+import EditServerModal from "../../modals/EditServerModal";
 import { useRouter } from "next/router";
 import HomePage from "../HomePage";
 import Head from "next/head";
+import EditChannelModal from "../../modals/EditChannelModal";
 
 export default function Channel() {
   const { data: session } = useSession();
@@ -24,7 +26,7 @@ export default function Channel() {
       </Head>
       <div className="flex">
         <SideBar />
-        {!query.query.id ? (
+        {!query.query.sid ? (
           <>
             <ChannelBar content={false} />
             <ContentContainer content={false} />
@@ -38,6 +40,8 @@ export default function Channel() {
       </div>
       <CreateServerModal />
       <CreateChannelModal />
+      <EditServerModal />
+      <EditChannelModal />
     </div>
   );
 }
