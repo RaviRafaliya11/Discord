@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import React from "react";
 import ChannelBar from "../../components/ChannelBar";
 import ContentContainer from "../../components/ContentContainer";
 import SideBar from "../../components/SideBar";
@@ -34,7 +33,7 @@ export default function Channel() {
         ) : (
           <>
             <ChannelBar content={true} />
-            <ContentContainer content={true} />
+            <ContentContainer content={true} serverhome={query.query.cid} />
           </>
         )}
       </div>

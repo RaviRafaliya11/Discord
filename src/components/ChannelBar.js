@@ -28,7 +28,7 @@ const ChannelBar = ({ content }) => {
       onSnapshot(doc(db, "Servers", `${urlparams.query.sid}`), (snapshot) => {
         setServer(snapshot.data());
       }),
-    [db, urlparams]
+    [db, urlparams.query.sid]
   );
 
   useEffect(
@@ -39,7 +39,7 @@ const ChannelBar = ({ content }) => {
           setChannels(snapshot.docs);
         }
       ),
-    [db, urlparams]
+    [db, urlparams.query.sid]
   );
   return (
     <div className="channel-bar shadow-lg">
@@ -112,16 +112,16 @@ const Channel = ({ data, owner }) => {
           }
         >
           <BsHash size="24" />
-          <p className="truncate">{data.channeldata.name}</p>
+          <p className="truncate flex-grow">{data.channeldata.name}</p>
+          {owner && selected && (
+            <FiEdit
+              onClick={() => setOpenEditChannel(true)}
+              className={`text-gray-500 cursor-pointer flex-none group-hover:text-white ${
+                selected && "dark:text-white"
+              }`}
+            />
+          )}
         </div>
-        {owner && selected && (
-          <FiEdit
-            onClick={() => setOpenEditChannel(true)}
-            className={`text-gray-500 cursor-pointer group-hover:text-white ${
-              selected && "dark:text-white"
-            }`}
-          />
-        )}
       </div>
     </>
   );
