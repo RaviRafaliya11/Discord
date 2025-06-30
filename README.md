@@ -1,27 +1,50 @@
-# Next.js + Tailwind CSS Example
+# Discord Clone 💬
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+---
 
-## Preview
+This is a **Discord Clone**, recreating the core functionalities of the popular communication platform. It focuses on real-time messaging, server/channel management, and user interaction in a chat-based environment.
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## ✨ Features
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+* **Real-time Chat:** Instant messaging within channels.
+* **Server & Channel Creation:** Users can create and join different servers and channels.
+* **User Authentication:** Secure login and registration.
+* **Direct Messaging:** (If implemented) Private conversations between users.
+* **Voice/Video Channels:** (If implemented, mention specific libraries used).
+* **Responsive Design:** Adapts to various screen sizes.
 
-## Deploy your own
+## 🚀 Tech Stack
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+*(Based on typical Discord clones, you'll need to fill this in with your actual stack)*
+* **Frontend:** React / Next.js
+* **Backend:** Node.js (Express/Socket.io) / Next.js API Routes
+* **Real-time Communication:** Socket.io
+* **Database:** MongoDB / PostgreSQL (Prisma)
+* **Authentication:** NextAuth / Passport.js
+* **Styling:** Tailwind CSS / Styled Components
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## ⚙️ Installation
 
-## How to use
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/RaviRafaliya11/discord-clone.git](https://github.com/RaviRafaliya11/discord-clone.git)
+    cd discord-clone
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+3.  **Database & Environment Setup:**
+    * Set up your database (e.g., MongoDB Atlas or local PostgreSQL).
+    * Create a `.env.local` file and add your database connection string, authentication secrets, and any other necessary API keys.
+4.  **Run the application:**
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+    Access at `http://localhost:3000`.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+---
